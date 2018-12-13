@@ -1,6 +1,5 @@
-# SFC Quick Start
-
-This repo is intended to give devs the empty pieces they need to get a Skafos project up and running.
+# Boilerplate
+- This notebook is intended to be the starting point for your new project
 
 This repo contains:
 - `metis.config.yml` - a config file detailing jobs, resource allocations and project tokens
