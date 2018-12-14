@@ -1,0 +1,7 @@
+project_token: <insert project token here>
+name:  <insert project name here>
+jobs:
+  - job_id: <insert job id here>
+    language: python
+    name: startup
+    entrypoint: "startup.ipynb"
