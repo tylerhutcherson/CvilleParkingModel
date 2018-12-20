@@ -1,7 +1,7 @@
-project_token: <insert project token here>
-name:  <insert project name here>
+project_token: 7d975e7e6b73a51b6e02106e
+name: boilerplate
 jobs:
-  - job_id: <insert job id here>
+  - job_id: 634b8ae0-283a-46d2-858a-3099504e12e8
     language: python
-    name: startup
-    entrypoint: "startup.ipynb"
+    name: boilerplate
+    entrypoint: "boilerplate.py"
