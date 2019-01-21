@@ -1,9 +1,9 @@
 # Boilerplate
-- This notebook is intended to be the starting point for your new project. To get started: add your requirements and start building using the `startup.ipynb`.
+- This notebook is intended to be the blank starting point for your new project.
 
 This repo contains:
 
-- `boilerplate.ipynb` - a notebook to get started building your project in.
+- `boilerplate.ipynb` - a Jupyter notebook to get started building your project in.
 - `requirements.txt` - a file listing your project's dependencies
 - `utilities/` - a directory that contains helper functions used to save models to Skafos.
 
