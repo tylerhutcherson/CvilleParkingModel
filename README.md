@@ -1,5 +1,5 @@
 # Boilerplate
-- This notebook is intended to be the blank starting point for your new project.
+- This notebook is intended to be a blank starting point for your new project.
 
 This repo contains:
 
