@@ -3,7 +3,7 @@
 
 This repo contains:
 
-- `startup.ipynb` - an empty notebook to run your code
+- `boilerplate.ipynb` - a notebook to get started building your project in.
 - `requirements.txt` - a file listing your project's dependencies
 - `utilities/` - a directory that contains helper functions used to save models to Skafos.
 
