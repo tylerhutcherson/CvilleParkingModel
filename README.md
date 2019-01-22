@@ -1,5 +1,5 @@
 # Boilerplate
-- This notebook is intended to be a blank starting point for your new project.
+- This repository is intended to be a template for starting your project. This project could include any of the following: data ingestion, data cleaning, model training, and model delivery.
 
 This repo contains:
 
