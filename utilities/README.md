@@ -3,7 +3,7 @@
 ## Resources
 The following module assists in developing machine learning models on Skafos.
 
--  `save_models.py`: a module to help with saving models to Skafos.
+-  `dependencies.py`: a module to help with installing dependencies and packages.
 
 ## Need Help?
 Didn't find something you need? Feel free to add other helper modules to this subdirectory as you continue the development of your models.
