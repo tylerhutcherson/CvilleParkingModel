@@ -1,11 +1,11 @@
 # Boilerplate
-- This notebook is intended to be a blank starting point for your new project.
+- This repository is intended to be a template for starting your project. This project could include any of the following: data ingestion, data cleaning, model training, and model delivery.
 
 This repo contains:
 
 - `boilerplate.ipynb` - a Jupyter notebook to get started building your project in.
 - `requirements.txt` - a file listing your project's dependencies
-- `utilities/` - a directory that contains helper functions used to save models to Skafos.
+- `utilities/` - a directory that contains helper functions used to install dependencies.
 
 ## Need Help?
 Please contact us with questions or feedback! Here are two ways:
@@ -16,10 +16,10 @@ Please contact us with questions or feedback! Here are two ways:
 
 Also check out our example repositories if you need some inspiration for your new project:
 
-- [**Object Detection**](https://github.com/skafos/TuriObjectDetection) - Give your users the ability to detect objects in your app.
-- [**Image Classifier**](https://github.com/skafos/TuriImageClassifier) - Give your users the ability to classify animals, objects, etc. in the photos they take.
-- [**Image Similarity**](https://github.com/skafos/TuriImageSimilarity) - Find images similar to the photos your app's users have taken.
-- [**Style Transfer**](https://github.com/skafos/TuriStyleTransfer) - Take designs and pieces of art and transfer their style to your user's photos.
-- [**Recommender**](https://github.com/skafos/TuriRecommender) - Recommend the most relevant products or items to your users.
-- [**Activity Classifier**](https://github.com/skafos/TuriActivityClassifier) - Classify the movement and activities of your app's users.
-- [**Text Classifier**](https://github.com/skafos/TuriTextClassifier) - Classify positive and negative text in your app.
+- [**Object Detection**](https://github.com/skafos/TuriObjectDetection) - Build a model to detect specific objects in images.
+- [**Image Classifier**](https://github.com/skafos/TuriImageClassifier) - Build a model to classify photos as specific animals, objects, etc.
+- [**Image Similarity**](https://github.com/skafos/TuriImageSimilarity) - Build a model that returns similar images to new images you provide.
+- [**Style Transfer**](https://github.com/skafos/TuriStyleTransfer) - Take designs and pieces of art and transfer their style to new photos.
+- [**Recommender**](https://github.com/skafos/TuriRecommender) - Build a model to recommend relevant products or items. 
+- [**Activity Classifier**](https://github.com/skafos/TuriActivityClassifier) - Build a model to classify motion and activity data.
+- [**Text Classifier**](https://github.com/skafos/TuriTextClassifier) - Build a model to classify text as positive/ negative or as belonging to a certain class.
