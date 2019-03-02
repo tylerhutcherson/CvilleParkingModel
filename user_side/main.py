@@ -20,7 +20,8 @@ res = queue.publish('input-key', json.dumps(msg), "CvilleParkingModel")
 logger.debug(res)
 
 try:
-    method, properties, body = queue.consume(queue_name = 'results')
+    method, properties, body = queue.consume(queue_name = 'results',
+            wait_time=60)
     json_body = json.loads(body)
     logger.debug(json.dumps(json_body))
     queue.ack(method.delivery_tag)
