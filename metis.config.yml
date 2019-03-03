@@ -8,6 +8,6 @@ jobs:
   - job_id: d928eee7-d3cf-4ea8-8d78-b1e32f6da5c9
     language: python
     name: Main
-    entrypoint: "sleep 120 | backend/main.py"
+    entrypoint: "backend/main.py"
 add-ons:
   - name: queue
