@@ -1,7 +1,7 @@
 
 TS_FORMAT = "%Y-%m-%d %H:%M:%S"
 
-EXCHANGE_NAME = "parking-ticket-app"
+EXCHANGE_NAME = "CvilleParkingModel"
 INPUT_QUEUE_NAME = "input"
 INPUT_ROUTING_KEY = "input-key"
 RESULTS_QUEUE_NAME = "results"

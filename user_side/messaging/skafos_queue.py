@@ -1,4 +1,3 @@
-import os
 import pika
 import threading
 from .exceptions import QueueError
