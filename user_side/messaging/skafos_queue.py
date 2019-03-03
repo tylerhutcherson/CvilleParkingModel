@@ -23,11 +23,11 @@ class SkafosQueue(object):
         self.publisher_queue = None
         self.publisher_connection = None
         self.stop_publisher = None
-        self.broker_name = "rabbitmq-mgmt.metis.wtf"
+        self.broker_name = "internal-a32f6d0b23d6e11e9b93c02d86058a9b-674234305.us-east-1.elb.amazonaws.com"
         self.broker_port = "5672"
         self.vhost = ""
-        self.broker_un = "guest"
-        self.broker_pw = "guest"
+        self.broker_un = "metismachine"
+        self.broker_pw = "skafosqueue"
         self.broker_url = f'amqp://{self.broker_un}:{self.broker_pw}@{self.broker_name}:{self.broker_port}/{self.vhost}?heartbeat=0&retry_delay=10&connection_attempts=20'
         self.parameters = pika.URLParameters(self.broker_url)
 

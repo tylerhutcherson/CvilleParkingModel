@@ -8,7 +8,7 @@ api = Flask('api')
 queue = SkafosQueue()
 modes = ['results', 'input']
 keys = [m + '-key' for m in modes]
-queue.setup(exchange_name="CvilleParkingModel", queue_names=modes, routing_keys = keys, delete = True)
+#queue.setup(exchange_name="CvilleParkingModel", queue_names=modes, routing_keys = keys, delete = True)
 
 @api.route("/status")
 def status_endpoint():
@@ -41,5 +41,5 @@ def submit_endpoint():
     else:
         return json.dumps({'error':f'{res}'}), status.HTTP_400_BAD_REQUEST
 
-api.run(debug=True)
+api.run(host='0.0.0.0', port=5000, debug=True)
 

@@ -1,42 +1,48 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: parkore
+---
+apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: parking
-  name: parking
+    app: parkore
+  name: parkore
+  namespace: parkore
   annotations:
     service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
     service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
     service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags: 'Environment=staging'
 spec:
   ports:
-  - name: http
+  - name: api
     port: 80
     targetPort: 5000
   selector:
-    app: parking
-  sessionAffinity: None
+    app: parkore
   type: LoadBalancer
 ---
-apiVersion: apps/v1
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: parking
+  name: parkore
+  namespace: parkore
   labels:
-    app: parking
+    app: parkore
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: parking
+      app: parkore
   template:
     metadata:
       labels:
-        app: parking
+        app: parkore
     spec:
       containers:
-      - name: parking
-        image: 445227032534.dkr.ecr.us-east-1.amazonaws.com/apollo:0.4.0-6a8c28a
+      - name: parkore
+        image: 445227032534.dkr.ecr.us-east-1.amazonaws.com/parkore:0.0.5
         ports:
           - containerPort: 5000
         resources:
