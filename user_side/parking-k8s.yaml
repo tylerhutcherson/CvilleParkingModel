@@ -42,7 +42,7 @@ spec:
     spec:
       containers:
       - name: parkore
-        image: 445227032534.dkr.ecr.us-east-1.amazonaws.com/parkore:0.0.6
+        image: 445227032534.dkr.ecr.us-east-1.amazonaws.com/parkore:0.0.7
         ports:
           - containerPort: 5000
         resources:

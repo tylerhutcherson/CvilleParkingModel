@@ -28,7 +28,7 @@ def submit_endpoint():
     if res:
         try:
             method, properties, body = queue.consume(queue_name = 'results',
-                    wait_timeout=60, auto_ack=True)
+                    wait_timeout=7200, auto_ack=True)
             json_body = json.loads(body)
             logger.info(json.dumps(json_body))
             res = make_response(json.dumps(json_body))
