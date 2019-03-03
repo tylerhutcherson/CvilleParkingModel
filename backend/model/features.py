@@ -26,4 +26,4 @@ def _distance(lat1, lon1, lat2, lon2):
     return 12742 * asin(sqrt(a))
 
 def closest_block(msg):
-    return min(block_lat_lons, key=lambda p: _distance(msg['lat'],msg['lon'],p['lat'],p['lon']))
+    return min(block_lat_lons, key=lambda p: _distance(float(msg['lat']),float(msg['lon']),float(p['lat']),float(p['lon'])))

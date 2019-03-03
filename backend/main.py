@@ -34,7 +34,8 @@ def consume_input_queue(skafos, queue, model):
         while True:
             # Retrieve a message from input queue
             method, properties, body = queue.consume(
-              queue_name=s.INPUT_QUEUE_NAME
+              queue_name=s.INPUT_QUEUE_NAME,
+              wait_timeout=300
             )
             # Start the timer
             start_time = time()
