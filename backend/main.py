@@ -5,41 +5,33 @@ from queue import Empty
 from datetime import datetime
 
 from skafossdk import *
-from skafossdk.exceptions import QueueError
 
+from messaging.skafos_queue import SkafosQueue
 import model.schema as s
 from model import features
 
-def setup_queues(skafos):
-  skafos.log('Setting up application queues.', labels=['queue_setup'])
-  skafos.queue.setup(
-    exchange_name=s.EXCHANGE_NAME,
-    queue_names=[s.INPUT_QUEUE_NAME, s.RESULTS_QUEUE_NAME],
-    routing_keys=[s.INPUT_ROUTING_KEY, s.RESULTS_ROUTING_KEY],
-    delete=True
-  )
 
 
 def _evaluate_parking_model(msg, model):
     model_inputs = features.create(msg)
     msg.update({
-        'ticket_likelihood': model.predict_proba(model_inputs)[0],
+        'ticket_likelihood': 0.67,#model.predict_proba(model_inputs)[0],
         'created_at': datetime.now().strftime(s.TS_FORMAT)
     })
     return msg
 
-def _publish_response(response):
-    res = ska.queue.publish(
+def _publish_response(response, queue):
+    res = queue.publish(
         exchange_name=s.EXCHANGE_NAME,
         routing_key=s.RESULTS_ROUTING_KEY,
         body=json.dumps(response)
     )
 
-def consume_input_queue(skafos, model):
+def consume_input_queue(skafos, queue, model):
   try:
     while True:
       # Retrieve a message from input queue
-      method, properties, body = skafos.queue.consume(
+      method, properties, body = queue.consume(
         queue_name=s.INPUT_QUEUE_NAME
       )
       # Start the timer
@@ -48,16 +40,13 @@ def consume_input_queue(skafos, model):
       msg = json.loads(body)
       response = _evaluate_parking_model(msg, model)
       # Publish response to the results queue
-      _publish_response(response)
-      skafos.queue.ack(method.delivery_tag)
+      _publish_response(response, queue)
+      queue.ack(method.delivery_tag)
       # Deliver performance metrics back to user
       runtime = time() - start_time
       skafos.log(f'Prediction delivered in {runtime} seconds', labels=['report'])
   except Empty:
     skafos.log("Queue Empty! Packing up and going home.", labels=['predict'])
-  except QueueError as e:
-    skafos.log(f'Error w/ queue while generating predictions: {e}', labels=['error', 'predict'])
-    raise e
   except Exception as e:
     skafos.log(f'Error while scoring: {e}', labels=['error', 'predict'])
     raise e
@@ -65,14 +54,12 @@ def consume_input_queue(skafos, model):
 
 
 if __name__ == "__main__":
-  # Initialize Skafos
+  # Initialize Skafos and Queue
   ska = Skafos()
+  queue = SkafosQueue()
 
-  # Setup queues
-  setup_queues(skafos=ska)
-
-  # Load parking model
-
+  # Load parking model - update soon
+  parking_model = None
   # Consume from input queue
-  consume_input_queue(skafos=ska, model=parking_model)
+  consume_input_queue(skafos=ska, queue=queue, model=parking_model)
   ska.log("Closing application. Goodbye.", labels=['shutdown'])

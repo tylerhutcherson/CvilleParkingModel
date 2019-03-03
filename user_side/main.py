@@ -2,7 +2,7 @@ import json
 from flask import Flask, abort, request, make_response
 from flask_api import status
 from logger import logger
-from blah import SkafosQueue
+from messaging.skafos_queue import SkafosQueue
 
 api = Flask('api')
 queue = SkafosQueue()
