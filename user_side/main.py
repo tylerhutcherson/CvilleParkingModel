@@ -10,6 +10,10 @@ modes = ['results', 'input']
 keys = [m + '-key' for m in modes]
 queue.setup(exchange_name="CvilleParkingModel", queue_names=modes, routing_keys = keys, delete = True)
 
+@api.route("/status")
+def status_endpoint():
+    return json.dumps({'status':"It works Morgan!"})
+
 @api.route("/", methods=["POST"])
 def submit_endpoint():
     if not request.json or not 'lat' in request.json or not 'lon' in request.json:
