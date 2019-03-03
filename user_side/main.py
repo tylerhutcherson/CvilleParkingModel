@@ -1,6 +1,6 @@
 import json
 from logger import logger
-from blah import SkafosQueue
+from messaging.skafos_queue import SkafosQueue
 
 queue = SkafosQueue()
 modes = ['results', 'input']
