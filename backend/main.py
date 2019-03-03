@@ -5,7 +5,6 @@ from datetime import datetime
 
 from skafossdk import *
 
-from messaging.skafos_queue import SkafosQueue
 import model.schema as s
 from model import features
 
@@ -22,18 +21,18 @@ def _evaluate_parking_model(msg, model):
     })
     return msg
 
-def _publish_response(response, queue):
-    res = queue.publish(
+def _publish_response(ska, response):
+    res = ska.queue.publish(
         exchange_name=s.EXCHANGE_NAME,
         routing_key=s.RESULTS_ROUTING_KEY,
         body=json.dumps(response)
     )
 
-def consume_input_queue(skafos, queue, model):
+def consume_input_queue(skafos, model):
     try:
         while True:
             # Retrieve a message from input queue
-            method, properties, body = queue.consume(
+            method, properties, body = skafos.queue.consume(
               queue_name=s.INPUT_QUEUE_NAME,
               wait_timeout=300
             )
@@ -41,11 +40,11 @@ def consume_input_queue(skafos, queue, model):
             start_time = time()
             # Load message and make a prediction
             msg = json.loads(body)
-            ska.log(msg, labels=['predict', 'message'])
+            skafos.log(msg, labels=['predict', 'message'])
             response = _evaluate_parking_model(msg, model)
             # Publish response to the results queue
-            _publish_response(response, queue)
-            queue.ack(method.delivery_tag)
+            _publish_response(ska=skafos, response)
+            skafos.queue.ack(method.delivery_tag)
             # Deliver performance metrics back to user
             runtime = time() - start_time
             skafos.log(f'Prediction delivered in {runtime} seconds', labels=['report'])
@@ -60,11 +59,10 @@ def consume_input_queue(skafos, queue, model):
 if __name__ == "__main__":
     # Initialize Skafos and Queue
     ska = Skafos()
-    queue = SkafosQueue()
 
     # Load parking model - update soon
     parking_model = None
 
     # Consume from input queue
-    consume_input_queue(skafos=ska, queue=queue, model=parking_model)
+    consume_input_queue(skafos=ska,model=parking_model)
     ska.log("Closing application. Goodbye.", labels=['shutdown'])

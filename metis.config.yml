@@ -1,0 +1,13 @@
+project_token: 06a16549a3e19a93faff2cc3
+name: CvilleParkingModel
+jobs:
+  - job_id: 6eef3faf-5c9b-48cd-ba35-02534c5c0d07
+    language: python
+    name: Setup
+    entrypoint: "backend/setup_queues.py"
+  - job_id: d928eee7-d3cf-4ea8-8d78-b1e32f6da5c9
+    language: python
+    name: Main
+    entrypoint: "sleep 120 | backend/main.py"
+add-ons:
+  - name: queue
