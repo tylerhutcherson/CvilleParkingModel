@@ -12,7 +12,7 @@ spec:
   ports:
   - name: http
     port: 80
-    targetPort: 8000
+    targetPort: 5000
   selector:
     app: parking
   sessionAffinity: None
@@ -38,7 +38,7 @@ spec:
       - name: parking
         image: 445227032534.dkr.ecr.us-east-1.amazonaws.com/apollo:0.4.0-6a8c28a
         ports:
-          - containerPort: 8000
+          - containerPort: 5000
         resources:
           limits:
             cpu: .2
