@@ -16,7 +16,7 @@ def _evaluate_parking_model(msg, model, labeler):
 
     model_inputs = features.create(msg, labeler)
     msg.update({
-        'ticket_likelihood': model.predict_proba(model_inputs)[0],
+        'ticket_likelihood': model.predict_proba(model_inputs)[0][1],
         'created_at': datetime.now().strftime(s.TS_FORMAT)
     })
     return msg
