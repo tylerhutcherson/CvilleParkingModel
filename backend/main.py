@@ -34,7 +34,7 @@ def consume_input_queue(skafos, model, labeler):
             # Retrieve a message from input queue
             method, properties, body = skafos.queue.consume(
               queue_name=s.INPUT_QUEUE_NAME,
-              wait_timeout=300
+              wait_timeout=46800
             )
             # Start the timer
             start_time = time()

@@ -16,7 +16,7 @@ def create(msg, labeler):
       'block': int(labeler.transform([str(msg['block_id'])])[0]),
       'hour': int(now.hour),
       'month': int(now.month),
-      'dayofweek': int((now.weekday())
+      'dayofweek': int((now.weekday()))
    }])[inputs]
 
 
