@@ -28,14 +28,13 @@ def submit_endpoint():
     if res:
         try:
             method, properties, body = queue.consume(queue_name = 'results',
-                    wait_timeout=60)
+                    wait_timeout=60, auto_ack=True)
             json_body = json.loads(body)
-            logger.debug(json.dumps(json_body))
-            queue.ack(method.delivery_tag)
-            res = make_response(json_body)
+            logger.info(json.dumps(json_body))
+            res = make_response(json.dumps(json_body))
             return res, status.HTTP_200_OK
         except Exception as e:
-            queue.ack(method.delivery_tag)
+            #queue.ack(method.delivery_tag)
             logger.error(f'{e}')        
             return json.dumps({'error': f'{e}'}), status.HTTP_400_BAD_REQUEST
     else:
