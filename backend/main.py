@@ -40,6 +40,7 @@ def consume_input_queue(skafos, queue, model):
             start_time = time()
             # Load message and make a prediction
             msg = json.loads(body)
+            ska.log(msg, labels=['predict', 'message'])
             response = _evaluate_parking_model(msg, model)
             # Publish response to the results queue
             _publish_response(response, queue)
