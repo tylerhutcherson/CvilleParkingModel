@@ -1,4 +1,5 @@
 import json
+import pickle
 from time import time
 from queue import Empty
 from datetime import datetime
@@ -8,15 +9,14 @@ from skafossdk import *
 import model.schema as s
 from model import features
 
-def _evaluate_parking_model(msg, model):
+def _evaluate_parking_model(msg, model, labeler):
     # Map input lat lon to a block id
     res = features.closest_block(msg)
     msg['block_id'] = res['block_id']
 
-
-    model_inputs = features.create(msg)
+    model_inputs = features.create(msg, labeler)
     msg.update({
-        'ticket_likelihood': 0.67,#model.predict_proba(model_inputs)[0],
+        'ticket_likelihood': model.predict_proba(model_inputs)[0],
         'created_at': datetime.now().strftime(s.TS_FORMAT)
     })
     return msg
@@ -28,7 +28,7 @@ def _publish_response(ska, response):
         body=json.dumps(response)
     )
 
-def consume_input_queue(skafos, model):
+def consume_input_queue(skafos, model, labeler):
     try:
         while True:
             # Retrieve a message from input queue
@@ -41,7 +41,7 @@ def consume_input_queue(skafos, model):
             # Load message and make a prediction
             msg = json.loads(body)
             skafos.log(msg, labels=['predict', 'message'])
-            response = _evaluate_parking_model(msg, model)
+            response = _evaluate_parking_model(msg, model, labeler)
             # Publish response to the results queue
             _publish_response(ska=skafos, response=response)
             skafos.queue.ack(method.delivery_tag)
@@ -61,8 +61,14 @@ if __name__ == "__main__":
     ska = Skafos()
 
     # Load parking model - update soon
-    parking_model = None
+    loaded_model_data = ska.engine.load_model('parking_model', tag = 'latest').result()
+    parking_model = pickle.loads(loaded_model_data['data'])
+
+    # Load label encoder used
+    label_encoder_data = ska.engine.load_model('label_encoder', tag = 'latest').result()
+    label_encoder = pickle.loads(label_encoder_data['data'])
+
 
     # Consume from input queue
-    consume_input_queue(skafos=ska,model=parking_model)
+    consume_input_queue(skafos=ska,model=parking_model, labeler=label_encoder)
     ska.log("Closing application. Goodbye.", labels=['shutdown'])

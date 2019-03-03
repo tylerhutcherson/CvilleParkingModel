@@ -10,10 +10,10 @@ block_lat_lons = pd.read_csv("s3://skafos.parking.tickets/blocklatlong.csv")
 block_lat_lons.columns = block_columns
 block_lat_lons = block_lat_lons[['lat', 'lon', 'block_id']].to_dict('records')
 
-def create(msg):
+def create(msg, labeler):
    now = datetime.now()
    return pd.DataFrame(data=[{
-      'block': str(msg['block_id']),
+      'block': labeler.transform([str(msg['block_id'])])[0],
       'hour': str(now.hour),
       'month': str(now.month),
       'dayofweek': str(now.weekday())
