@@ -13,6 +13,10 @@ from model import features
 
 
 def _evaluate_parking_model(msg, model):
+    res = features.closest_block(msg)
+    msg['block_id'] = res['block_id']
+
+
     model_inputs = features.create(msg)
     msg.update({
         'ticket_likelihood': 0.67,#model.predict_proba(model_inputs)[0],
@@ -60,6 +64,7 @@ if __name__ == "__main__":
 
   # Load parking model - update soon
   parking_model = None
+
   # Consume from input queue
   consume_input_queue(skafos=ska, queue=queue, model=parking_model)
   ska.log("Closing application. Goodbye.", labels=['shutdown'])
