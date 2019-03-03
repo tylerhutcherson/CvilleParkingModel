@@ -43,7 +43,7 @@ def consume_input_queue(skafos, model):
             skafos.log(msg, labels=['predict', 'message'])
             response = _evaluate_parking_model(msg, model)
             # Publish response to the results queue
-            _publish_response(ska=skafos, response)
+            _publish_response(ska=skafos, response=response)
             skafos.queue.ack(method.delivery_tag)
             # Deliver performance metrics back to user
             runtime = time() - start_time
