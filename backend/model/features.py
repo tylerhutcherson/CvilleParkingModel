@@ -13,10 +13,10 @@ block_lat_lons = block_lat_lons[['lat', 'lon', 'block_id']].to_dict('records')
 def create(msg, labeler):
    now = datetime.now()
    return pd.DataFrame(data=[{
-      'block': labeler.transform([str(msg['block_id'])])[0],
-      'hour': str(now.hour),
-      'month': str(now.month),
-      'dayofweek': str(now.weekday())
+      'block': int(labeler.transform([str(msg['block_id'])])[0]),
+      'hour': int(now.hour),
+      'month': int(now.month),
+      'dayofweek': int((now.weekday())
    }])[inputs]
 
 
